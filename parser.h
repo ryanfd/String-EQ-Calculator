@@ -29,7 +29,7 @@ float shuntingYard(const string&);
 // bool isParen(const Token& t) { return isOpenParen(t) || isClosedParen(t); }
 
 // turn single char into string
-string toString(char c)
+string cpmvertToStr(char c)
 {
     string str = "";
     str += c;
