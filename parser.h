@@ -1,37 +1,48 @@
+#include <functional>
+#include <iostream>
+#include <sstream>
 #include <string>
-#include <stack>
 #include <vector>
-#include <unordered_map>
+#include <deque>
+#include <stdio.h>
+#include <math.h>
+#include <iostream>
+#include <algorithm>
 
 using std::string;
-using std::stack;
+using std::deque;
 using std::vector;
 
-// for shunting-yard algorithm
-using Token = string; // to specify specifics tokens from whole strings
-using Operator_Name = string;
-using Precedence    = int;
-enum class Associates { none, left_to_right, right_to_left };
-struct Operator { Precedence precedence; Associates associativity; };
+using std::cout;
+using std::endl;
 
-// eliminate unneeded spacing and tabs
-string removeSpaces(const string&);
+class Token {
+public:
+    enum class Type { // one token is a character in the given string
+        Unknown,
+        Number, 
+        Operator, 
+        LeftParen,
+        RightParen,
+    };
 
-// parse string into mathematical equation
-float shuntingYard(const string&);
+    // fields
+    const Type type;
+    const string str;
+    const int precedence;
+    const bool rightAssociative;
 
-//
-// helper methods
-//
+    // constructor
+    Token(Type t, const string& s, int prec = -1, bool ra = false)
+    : type{t}, str(s), precedence(prec), rightAssociative{ra}
+    { }
+};
 
-// bool isOpenParen(const Token& t) { return t == "("; }
-// bool isClosedParen(const Token& t) { return t == ")"; }
-// bool isParen(const Token& t) { return isOpenParen(t) || isClosedParen(t); }
+// doublen ended queue to store numbers and operators
+deque<Token> expressToTokens(const string& s);
 
-// turn single char into string
-string cpmvertToStr(char c)
-{
-    string str = "";
-    str += c;
-    return str;
-}
+// implement calculation from deque
+deque<Token> shutingYard(const deque<Token>& tokens);
+
+// clear empty spaces and tabs from string
+void removeSpaces(string& str);
