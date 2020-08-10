@@ -44,5 +44,8 @@ deque<Token> expressToTokens(const string& s);
 // implement calculation from deque
 deque<Token> shutingYard(const deque<Token>& tokens);
 
+// do the calculations
+float doCalculation(const string& str);
+
 // clear empty spaces and tabs from string
 void removeSpaces(string& str);
