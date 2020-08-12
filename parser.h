@@ -9,13 +9,6 @@
 #include <iostream>
 #include <algorithm>
 
-using std::string;
-using std::deque;
-using std::vector;
-
-using std::cout;
-using std::endl;
-
 class Token {
 public:
     enum class Type { // one token is a character in the given string
@@ -28,24 +21,24 @@ public:
 
     // fields
     const Type type;
-    const string str;
+    const std::string str;
     const int precedence;
     const bool rightAssociative;
 
     // constructor
-    Token(Type t, const string& s, int prec = -1, bool ra = false)
+    Token(Type t, const std::string& s, int prec = -1, bool ra = false)
     : type{t}, str(s), precedence(prec), rightAssociative{ra}
     { }
 };
 
 // doublen ended queue to store numbers and operators
-deque<Token> expressToTokens(const string& s);
+std::deque<Token> expressToTokens(const std::string& s);
 
 // implement calculation from deque
-deque<Token> shutingYard(const deque<Token>& tokens);
+std::deque<Token> shutingYard(const std::deque<Token>& tokens);
 
 // do the calculations
-float doCalculation(const string& str);
+float doCalculation(const std::string& str);
 
 // clear empty spaces and tabs from string
-void removeSpaces(string& str);
+void removeSpaces(std::string& str);
