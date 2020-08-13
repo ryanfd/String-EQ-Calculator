@@ -59,10 +59,7 @@ def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
     if method:
         return method(self, value)
     if (not static):
-        if _newclass:
-            object.__setattr__(self, name, value)
-        else:
-            self.__dict__[name] = value
+        object.__setattr__(self, name, value)
     else:
         raise AttributeError("You cannot add attributes to %s" % self)
 
@@ -87,103 +84,32 @@ def _swig_repr(self):
         strthis = ""
     return "<%s.%s; %s >" % (self.__class__.__module__, self.__class__.__name__, strthis,)
 
-try:
-    _object = object
-    _newclass = 1
-except __builtin__.Exception:
-    class _object:
-        pass
-    _newclass = 0
 
-class SwigPyIterator(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, SwigPyIterator, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, SwigPyIterator, name)
+def _swig_setattr_nondynamic_method(set):
+    def set_attr(self, name, value):
+        if (name == "thisown"):
+            return self.this.own(value)
+        if hasattr(self, name) or (name == "this"):
+            set(self, name, value)
+        else:
+            raise AttributeError("You cannot add attributes to %s" % self)
+    return set_attr
 
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _parser.delete_SwigPyIterator
-    __del__ = lambda self: None
 
-    def value(self) -> "PyObject *":
-        return _parser.SwigPyIterator_value(self)
-
-    def incr(self, n: 'size_t'=1) -> "swig::SwigPyIterator *":
-        return _parser.SwigPyIterator_incr(self, n)
-
-    def decr(self, n: 'size_t'=1) -> "swig::SwigPyIterator *":
-        return _parser.SwigPyIterator_decr(self, n)
-
-    def distance(self, x: 'SwigPyIterator') -> "ptrdiff_t":
-        return _parser.SwigPyIterator_distance(self, x)
-
-    def equal(self, x: 'SwigPyIterator') -> "bool":
-        return _parser.SwigPyIterator_equal(self, x)
-
-    def copy(self) -> "swig::SwigPyIterator *":
-        return _parser.SwigPyIterator_copy(self)
-
-    def next(self) -> "PyObject *":
-        return _parser.SwigPyIterator_next(self)
-
-    def __next__(self) -> "PyObject *":
-        return _parser.SwigPyIterator___next__(self)
-
-    def previous(self) -> "PyObject *":
-        return _parser.SwigPyIterator_previous(self)
-
-    def advance(self, n: 'ptrdiff_t') -> "swig::SwigPyIterator *":
-        return _parser.SwigPyIterator_advance(self, n)
-
-    def __eq__(self, x: 'SwigPyIterator') -> "bool":
-        return _parser.SwigPyIterator___eq__(self, x)
-
-    def __ne__(self, x: 'SwigPyIterator') -> "bool":
-        return _parser.SwigPyIterator___ne__(self, x)
-
-    def __iadd__(self, n: 'ptrdiff_t') -> "swig::SwigPyIterator &":
-        return _parser.SwigPyIterator___iadd__(self, n)
-
-    def __isub__(self, n: 'ptrdiff_t') -> "swig::SwigPyIterator &":
-        return _parser.SwigPyIterator___isub__(self, n)
-
-    def __add__(self, n: 'ptrdiff_t') -> "swig::SwigPyIterator *":
-        return _parser.SwigPyIterator___add__(self, n)
-
-    def __sub__(self, *args) -> "ptrdiff_t":
-        return _parser.SwigPyIterator___sub__(self, *args)
-    def __iter__(self):
-        return self
-SwigPyIterator_swigregister = _parser.SwigPyIterator_swigregister
-SwigPyIterator_swigregister(SwigPyIterator)
-
-class Token(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Token, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Token, name)
+class Token(object):
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
     __repr__ = _swig_repr
     Type_Unknown = _parser.Token_Type_Unknown
     Type_Number = _parser.Token_Type_Number
     Type_Operator = _parser.Token_Type_Operator
     Type_LeftParen = _parser.Token_Type_LeftParen
     Type_RightParen = _parser.Token_Type_RightParen
-    __swig_getmethods__["type"] = _parser.Token_type_get
-    if _newclass:
-        type = _swig_property(_parser.Token_type_get)
-    __swig_getmethods__["str"] = _parser.Token_str_get
-    if _newclass:
-        str = _swig_property(_parser.Token_str_get)
-    __swig_getmethods__["precedence"] = _parser.Token_precedence_get
-    if _newclass:
-        precedence = _swig_property(_parser.Token_precedence_get)
-    __swig_getmethods__["rightAssociative"] = _parser.Token_rightAssociative_get
-    if _newclass:
-        rightAssociative = _swig_property(_parser.Token_rightAssociative_get)
+    type = _swig_property(_parser.Token_type_get)
+    str = _swig_property(_parser.Token_str_get)
+    precedence = _swig_property(_parser.Token_precedence_get)
+    rightAssociative = _swig_property(_parser.Token_rightAssociative_get)
 
-    def __init__(self, t: 'Token::Type', s: 'string const &', prec: 'int'=-1, ra: 'bool'=False):
+    def __init__(self, t: 'Token::Type', s: 'std::string const &', prec: 'int'=-1, ra: 'bool'=False):
         this = _parser.new_Token(t, s, prec, ra)
         try:
             self.this.append(this)
@@ -195,21 +121,20 @@ Token_swigregister = _parser.Token_swigregister
 Token_swigregister(Token)
 
 
-def expressToTokens(s: 'string const &') -> "deque< Token,std::allocator< Token > >":
+def expressToTokens(s: 'std::string const &') -> "std::deque< Token >":
     return _parser.expressToTokens(s)
 expressToTokens = _parser.expressToTokens
 
-def shutingYard(tokens: 'deque< Token,std::allocator< Token > > const &') -> "deque< Token,std::allocator< Token > >":
+def shutingYard(tokens: 'std::deque< Token > const &') -> "std::deque< Token >":
     return _parser.shutingYard(tokens)
 shutingYard = _parser.shutingYard
 
-def doCalculation(str: 'string const &') -> "float":
+def doCalculation(str: 'std::string const &') -> "float":
     return _parser.doCalculation(str)
 doCalculation = _parser.doCalculation
 
-def removeSpaces(str: 'string &') -> "void":
+def removeSpaces(str: 'std::string &') -> "void":
     return _parser.removeSpaces(str)
 removeSpaces = _parser.removeSpaces
-# This file is compatible with both classic and new-style classes.
 
 

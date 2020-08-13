@@ -1,35 +1,33 @@
-import System.Environment -- for main arguments
+module Recursive where
 
-hailstone::Integer->Integer
+import Foreign.C.Types -- for foreign calls
+
+foreign export ccall hailstone :: CInt -> CInt
+hailstone::CInt->CInt
 hailstone n
  | n `mod` 2 == 0    = n `div` 2
  | otherwise         = 3*n + 1
 
-hailSeq :: Integer -> [Integer]
+hailSeq :: CInt -> [CInt]
 hailSeq 0 = [0]
 hailSeq 1 = [1]
 hailSeq n = n:(hailSeq(hailstone n))
 
-fib :: Int -> Int
+foreign export ccall fib :: CInt -> CInt
+fib :: CInt -> CInt
 fib 0 = 0
 fib 1 = 1
 fib x = (fib (x-1)) + (fib (x-2))
 
-divisors :: Int -> [Int]
+divisors :: CInt -> [CInt]
 divisors n = [i | i <- [2..(n `div` 2)], n `mod` i == 0]
 
-primes :: Int -> [Int]
+primes :: CInt -> [CInt]
 primes n = [i | i <- [2..n], divisors i == []]
 
-fact'::Integer->Integer
-fact' n = foldl (*) 1 [1..n]
-
-toInt :: String -> Integer
-toInt s = read s :: Integer
+foreign export ccall fact :: CInt -> CInt
+fact :: CInt -> CInt
+fact n = foldl (*) 1 [1..n]
 
 main :: IO ()
-main = do
-  args <- getArgs
-  case args of ["hail", n] -> toInt n
-                   
-  print args
+main = print ""
