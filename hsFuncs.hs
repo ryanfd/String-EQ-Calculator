@@ -1,6 +1,16 @@
+{-# LINE 1 "hsFuncs.hsc" #-}
+{-# LANGUAGE CPP                         #-}
+{-# LINE 2 "hsFuncs.hsc" #-}
+{-# LANGUAGE ForeignFunctionInterface    #-}
+
 module Recursive where
 
 import Foreign.C.Types -- for foreign calls
+
+-- foreign ctype calls
+foreign export ccall hailstone_hs :: CInt -> CInt
+foreign export ccall fib_hs :: CInt -> CInt
+foreign export ccall fact_hs :: CInt -> CInt
 
 hailstone :: Int -> Int
 hailstone n
@@ -9,6 +19,7 @@ hailstone n
 
 hailstone_hs :: CInt -> CInt
 hailstone_hs = fromIntegral . hailstone . fromIntegral
+
 
 hailSeq :: Int -> [Int]
 hailSeq 0 = [0]
@@ -36,12 +47,3 @@ fact n = foldl (*) 1 [1..n]
 
 fact_hs :: CInt -> CInt
 fact_hs = fromIntegral . fact . fromIntegral
-
-main :: IO ()
-main = print ""
-
-
--- foreign ctype calls
-foreign export ccall hailstone_hs :: CInt -> CInt
-foreign export ccall fib_hs :: CInt -> CInt
-foreign export ccall fact_hs :: CInt -> CInt

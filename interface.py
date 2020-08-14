@@ -1,14 +1,14 @@
 import parser # swig - foreign function interface communication
-import ctypes # ffi communication between haskell and python
+from subprocess import call # use to run haskell/c programs as executable
 
 goAgain = "y"
 
-print("\n\n***STRING EQUALITY CALCULATOR***\n")
+print("\n***STRING EQUALITY CALCULATOR***\n")
 
 while (goAgain == "y") :
-    print("Welcome to the Polyglot Interface!\n")
+    print("\nWelcome to the Polyglot Interface!\n")
 
-    print("VALID OPERATORS: { '^', '*', '/', '+', '-' }\n")
+    print("VALID OPERATORS: { '(', ')', '^', '*', '/', '+', '-' }\n")
 
     # get equation
     print("***PLEASE ENTER WHOLE NUMBERS AND DO NOT INPUT ANY SPACES OR TABS***")
@@ -20,34 +20,13 @@ while (goAgain == "y") :
     print("\n")
 
     # implement the Haskell functions
-    if (result.is_integer()):
-        print("\nWhich recursive Haskell functions whould you like to apply to your answer?\n")
-        print("Your options include:") 
-        print("1. 'hail' for Hailstone algorithm.")
-        print("2. 'fib' for the Fibonacci algorithm.")
-        print("3. 'div' to get a list of the divisors of your result.")
-        print("4. 'primes' to get a list of the primes less or equal to the result.")
-        print("5. 'fact' to get the factorial value of your answer.")
-        print("6. 'none' to not apply any haskell functions.")
-        recursiveChoice = input("\nUsing a number of keyword described above, please input your choice of recursive functions: ")
-
-        if (recursiveChoice.lower() == "hail" or recursiveChoice == "1"):
-            print("hailstone\n")
-        elif (recursiveChoice.lower() == "fib" or recursiveChoice == "2"):
-            print("fibonacci")
-        elif (recursiveChoice.lower() == "div" or recursiveChoice == "3"):
-            print("divisors")
-        elif (recursiveChoice.lower() == "primes" or recursiveChoice == "4"):
-            print("primes")
-        elif (recursiveChoice.lower() == "fact" or recursiveChoice == "5"):
-            print("factorial")
-        else :
-            print("nothing")
-    else :
-        print("Recursive Haskell functions can only be applied to whole numbers.\n")
+    print("Using Hailstone, Fibonacci and Factorial Haskell functions, the following amounts were found:")
+    # call C stub function file as an executable
+    call(["./wrap", str(result)]) # pass 'result' as an argument to C stub function which passes 'result' to Haskell
+    print("\n")
 
     # Allow multiple uses...
-    goAgain = input("Would you like to go again? Y/n?")
+    goAgain = input("Would you like to go again? y/n? ")
 
     if (goAgain.lower() != "y"): 
         break
