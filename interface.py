@@ -1,4 +1,5 @@
 import parser # swig - foreign function interface communication
+import ctypes # ffi communication between haskell and python
 
 goAgain = "y"
 
@@ -11,7 +12,7 @@ while (goAgain == "y") :
 
     # get equation
     print("***PLEASE ENTER WHOLE NUMBERS AND DO NOT INPUT ANY SPACES OR TABS***")
-    inputValue = str(input("Please enter an equation using the '^', '*', '/', '+', or '-' operators: "))
+    inputValue = str(input("Please enter an equation using the '(', ')', '^', '*', '/', '+', or '-' operators: "))
     print("\n\nYour equation is: ", inputValue, " with a type of ", type(inputValue))
 
     result = parser.doCalculation(inputValue)
