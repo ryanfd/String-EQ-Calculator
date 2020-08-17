@@ -5,9 +5,28 @@ The String Equality Calculator has a primary interface in python. It accepts a s
 
 
 *START UP - IMPORTANT*
-Unfortunately, I could not get my Vagrantfile to work properly. Originally, I was having trouble getting it booted up with 'vagrant up'. After some testing and googling, I found that I was having issues running a Virtual Machine inside another VM. I moved to my host environment and Vagrant started to work. I then imported the cookbooks template that was given to us. But I ran into a new problem where Chef was unable to start up. This is where I got stuck. I think it has something to do with the acceptance of the chef license and 404 errors when webpages are loaded. 
+Unfortunately, I could not get my Vagrantfile to work properly. Originally, I was having trouble getting it booted up with 'vagrant up'. After some testing and googling, I found that I was having issues running a Virtual Machine inside another VM. I moved to my host environment and Vagrant started to work. I then imported the cookbooks template that was given to us. But I ran into a new problem where Chef was unable to start up. This is where I got stuck. I think it has something to do with the acceptance of the chef license and 404 errors when webpages are loaded. I believe I could have figured it out, but due to other exams and projects, I lost track of time.
 
+- TO RUN: 
+1. This project will run without issue in the CSIL labs. Steps to easily do so are below (copy,paste and use your own SFU ID):
+    - Upload to CSIL using terminal, proj.zip file is provided, then SSH into CSIL:
+        - scp -P24 proj.zip yourSfuId@csil-cpu2.cs.surrey.sfu.ca:/home/yourSfuId/
+        - ssh -p24 yourSfuId@csil-cpu2.cs.surrey.sfu.ca
+    - Unzip the file and run:
+        - unzip proj.zip
+        - make (Makefile includes the run command: 'python3 interface.py')
+        - to run again without compilation type: 'python3 interface.py'
 
+2. To run without CSIL make sure the following libraries are installed:
+    - Dependencies:
+        - g++: sudo apt-get install g++
+        - gcc: sudo apt install build-essential
+        - swig: sudo apt-get install -y swig
+        - ghc: sudo apt-get install haskell-platform
+        - python3: sudo apt-get install python3.6
+    - Run:
+        - make
+        - to run again without compilation type: 'python3 interface.py'
 
 *COMMUNICATION*
 - Swig is used for communication between C++ and Python. Using this interface allows for Python to import and call the C++ library that I have created.
